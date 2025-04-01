@@ -13,18 +13,15 @@ def render_onboarding(navigate):
         st.error("❌ Failed to load startup data.")
         return
 
+    # Safely display startups
     display_startups(startups)
 
-    selected = None
+    # Selection logic
     for idx, company in enumerate(startups):
         if not isinstance(company, dict) or "name" not in company:
             continue
         if st.button(f"Acquire {company['name']}", key=f"select_{idx}"):
-            selected = company
-            break
-
-    if selected:
-        st.session_state.company_id = startups.index(selected) + 1
-        st.session_state.selected_company = selected
-        st.session_state.page = "funding_round"
-        st.rerun()
+            st.session_state.company_id = idx + 1
+            st.session_state.selected_company = company
+            st.session_state.page = "funding_round"
+            st.rerun()
