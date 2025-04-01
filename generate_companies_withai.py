@@ -71,21 +71,35 @@ Return as a Python list of dictionaries.
 
 def fallback_startups() -> List[Dict]:
     return [{
-        "name": "Fallback Co.",
+        "name": "Fallback Co.v1",
         "industry": "EdTech",
-        "description": "A startup for testing only.",
+        "description": "This is a fallback startup shown when OpenAI fails.",
         "valuation": "$1,000,000",
-        "morale": 80,
-        "customers": 500,
+        "revenue": "$250,000",
+        "ebitda": "$50,000",
+        "assets": "$300,000",
+        "debt": "$20,000",
+        "morale": 75,
+        "customers": 1200,
         "dependencies": ["Servers", "Content Creators", "Marketing"]
     }]
 
 def display_startups(startups: List[Dict]):
     st.subheader("🚀 Startup Opportunities")
+
     for s in startups:
+        # Safely skip malformed entries
+        if not isinstance(s, dict) or "name" not in s or "industry" not in s:
+            st.warning("⚠️ Skipping invalid startup entry.")
+            continue
+
         with st.expander(f"{s['name']} — {s['industry']}"):
-            st.write(s['description'])
-            st.metric("💰 Valuation", s['valuation'])
-            st.metric("📈 Morale", s['morale'])
-            st.metric("👥 Customers", s['customers'])
-            st.write("📦 Dependencies:", ', '.join(s['dependencies']))
+            st.write(s.get('description', 'No description provided.'))
+            st.metric("💰 Valuation", s.get('valuation', 'N/A'))
+            st.metric("📈 Revenue", s.get('revenue', 'N/A'))
+            st.metric("💹 EBITDA", s.get('ebitda', 'N/A'))
+            st.metric("🏦 Assets", s.get('assets', 'N/A'))
+            st.metric("💸 Debt", s.get('debt', 'N/A'))
+            st.metric("📊 Morale", s.get('morale', 'N/A'))
+            st.metric("👥 Customers", s.get('customers', 'N/A'))
+            st.write("📦 Dependencies:", ', '.join(s.get('dependencies', [])))
