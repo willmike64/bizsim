@@ -1,6 +1,6 @@
 
 import streamlit as st
-from streamlit_generate_companies_withai import generate_startups, display_startups
+from generate_companies_withai import generate_startups, display_startups
 
 def render_onboarding(navigate):
     st.subheader("🚀 Choose a Company to Acquire")
