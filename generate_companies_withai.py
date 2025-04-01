@@ -71,17 +71,18 @@ Return as a Python list of dictionaries.
 
 def fallback_startups() -> List[Dict]:
     return [{
-        "name": "Fallback Co.v1",
+        "name": "Fallback Co.",
         "industry": "EdTech",
         "description": "This is a fallback startup shown when OpenAI fails.",
-        "valuation": "$1,000,000",
-        "revenue": "$250,000",
-        "ebitda": "$50,000",
-        "assets": "$300,000",
-        "debt": "$20,000",
+        "valuation": 1000000,         # ✅ Number
+        "revenue": 250000,
+        "ebitda": 50000,
+        "assets": 300000,
+        "debt": 20000,
         "morale": 75,
         "customers": 1200,
         "dependencies": ["Servers", "Content Creators", "Marketing"]
+    }]
     }]
 
 def display_startups(startups: List[Dict]):
