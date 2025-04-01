@@ -13,8 +13,10 @@ def render_funding_ui(navigate):
         st.session_state.negotiation_stage = "owner"
     if "owner_round" not in st.session_state:
         st.session_state.owner_round = 1
+    if "original_ask" not in st.session_state:
+        st.session_state.original_ask = int(company["valuation"] * 1.2)
     if "owner_offer" not in st.session_state:
-        st.session_state.owner_offer = {"valuation": int(company["valuation"] * 1.2), "equity": 100}
+        st.session_state.owner_offer = {"valuation": st.session_state.original_ask, "equity": 100}
     if "user_offer" not in st.session_state:
         st.session_state.user_offer = {"valuation": company["valuation"], "equity": 100}
     if "owner_agreed" not in st.session_state:
@@ -40,7 +42,8 @@ def render_funding_ui(navigate):
     if st.session_state.negotiation_stage == "owner":
         st.header("🤝 Negotiation with Original Owner")
         st.markdown(f"""
-        - 📃 **Original Asking Price:** ${st.session_state.owner_offer['valuation']:,}
+        - 📃 **Original Asking Price:** ${st.session_state.original_ask:,}
+        - 🧠 **Owner's Counter Offer:** ${st.session_state.owner_offer['valuation']:,}
         - 🎯 **Equity for Sale:** {st.session_state.owner_offer['equity']}%
         - 💬 **Your Last Offer:** ${st.session_state.user_offer['valuation']:,}
         - 🔁 **Rounds Remaining:** {10 - st.session_state.owner_round}
@@ -52,6 +55,7 @@ def render_funding_ui(navigate):
         if st.button("💬 Submit Offer to Original Owner"):
             st.session_state.user_offer["valuation"] = user_val
             st.session_state.owner_round += 1
+
             midpoint = int((user_val + st.session_state.owner_offer["valuation"]) / 2)
             st.session_state.owner_offer["valuation"] = midpoint
 
