@@ -5,9 +5,8 @@ def render_staffing_ui():
     st.subheader("👥 Staffing & Department Overview")
 
     departments = {
-        "Administrative": "Improve Shareholder Value",
         "Sales": "Improve revenue through outreach",
-        "Engineering and Technical": "Build and maintain products",
+        "Engineering": "Build and maintain products",
         "Marketing": "Increase brand awareness",
         "Customer Success": "Support and retain users",
         "Finance": "Manage capital and reporting"
