@@ -13,7 +13,7 @@ def render_onboarding(navigate):
         st.error("❌ Failed to load startup data.")
         return
 
-    # Safely display startups
+    # Display each valid startup
     display_startups(startups)
 
     # Selection logic
